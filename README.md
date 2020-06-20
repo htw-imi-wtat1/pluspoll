@@ -25,7 +25,7 @@ moved the generated README to [./doc/create-react-app-readme.doc](./doc/create-r
 ## Add Express
 
 
-## Api Calls
+## Api Calls, connecting the Backend
 
 https://reactjs.org/docs/faq-ajax.html
 
@@ -33,3 +33,9 @@ To tunnel backend requests through the front end running on port 3000, two thing
 - proxy in package.json
 - header accept = "application/json" to make the dev server use the proxy to the backend
 
+- see Blog Article [How to connect your React app to a backend on the same origin](https://flaviocopes.com/how-to-serve-react-from-same-origin/)
+- [Proxying API Requests in Development](https://create-react-app.dev/docs/proxying-api-requests-in-development/)
+
+## Add React Router
+
+https://create-react-app.dev/docs/adding-a-router
