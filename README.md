@@ -37,5 +37,6 @@ To tunnel backend requests through the front end running on port 3000, two thing
 - [Proxying API Requests in Development](https://create-react-app.dev/docs/proxying-api-requests-in-development/)
 
 ## Add React Router
-
-https://create-react-app.dev/docs/adding-a-router
+Added react router and used the basic example.
+- [Adding a router](https://create-react-app.dev/docs/adding-a-router)
+- [Basic Example in react-router](https://reacttraining.com/react-router/web/example/basic)

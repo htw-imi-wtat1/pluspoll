@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import Ping from './components/ping'
 import './App.css';
+import { Poll,Vote } from "./components/pollplus.js"
 
 // This site has 3 pages, all of which are rendered
 // dynamically in the browser (not server rendered).
@@ -21,18 +22,8 @@ export default function PollPlus() {
     return (
         <Router>
             <div>
-                <ul>
-                    <li>
-                        <Link to="/">Home</Link>
-                    </li>
-                    <li>
-                        <Link to="/about">About</Link>
-                    </li>
-                    <li>
-                        <Link to="/dashboard">Dashboard</Link>
-                    </li>
-                </ul>
-
+               <Link to="/">PollPlus</Link> | <Link to="/poll">Host Poll</Link>
+                 | <Link to="/vote">Vote</Link>
                 <hr />
 
                 {/*
@@ -46,11 +37,11 @@ export default function PollPlus() {
                     <Route exact path="/">
                         <Home />
                     </Route>
-                    <Route path="/about">
-                        <About />
+                    <Route path="/poll">
+                        <Poll />
                     </Route>
-                    <Route path="/dashboard">
-                        <Dashboard />
+                    <Route path="/vote">
+                        <Vote />
                     </Route>
                 </Switch>
             </div>
