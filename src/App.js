@@ -58,7 +58,7 @@ function Home() {
             <h1>PollPlus</h1>
             <p>Welcome to PollPlus.</p>
             <p><Ping/></p>
-            <a href="create">Create Poll</a>
+            <a href="poll">Create Poll</a>
         </div>
     );
 }
