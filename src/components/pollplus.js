@@ -3,30 +3,38 @@ import React from 'react';
 const poll =
     {
         question: 'Please choose an icecream flavor!',
-        options: [{name: "rumraisin", label: "Rum-Raisin", checked: false},
-            {name: "vanilla", label: "Vanilla", checked: false},
-            {name: "chocolate", label: "Chocolate", checked: false},
-            {name: "pistachio", label: "Pistachio", checked: false}
-
-        ]
+        options: [{name: "rumraisin", label: "Rum-Raisin"},
+            {name: "vanilla", label: "Vanilla"},
+            {name: "chocolate", label: "Chocolate"},
+            {name: "pistachio", label: "Pistachio"}],
+        votes: {
+            vanilla: false,
+            chocolate: false,
+            pistachio: true,
+            rumraisin: false
+        }
     }
+
 class Option extends React.Component {
     constructor(props) {
+    console.log("Option constructor"+props.name+props.checked)
         super(props);
+
         this.state = {
-            key: props.key,
-            label: props.option.label,
-            name: props.option.name,
+            name: props.name,
+            label: props.label,
             checked: props.checked,
             onChange: props.onChange
         };
+        //console.log("state"+JSON.stringify(this.state))
         this.handleChange = this.handleChange.bind(this);
     }
     handleChange(event){
         this.state.onChange(this.state.name, event.target.checked)
-        event.preventDefault()
+
     }
     render(){
+
     return(<div>
         <label>
             <input
@@ -38,30 +46,37 @@ class Option extends React.Component {
         </label>
             </div>)
     }
-
 }
 class PollPlus extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            question: props.question,
-            options: props.options
+            question: props.poll.question,
+            options: props.poll.options,
+            votes: props.poll.votes
         };
         this.optionChecked = this.optionChecked.bind(this);
     }
-    optionChecked(name,checked){
-            console.log("option checked: "+name+checked)
+    optionChecked(key,checked){
+        const currentVotes = this.state.votes
+        currentVotes[key] = checked
+        console.log("option checked: "+key+checked)
+        console.log(JSON.stringify(currentVotes))
+        this.setState({votes: currentVotes})
     }
     render() {
+        console.log("re-render")
+        console.log(JSON.stringify(this.state))
         const newOption = {checked: false}
         return (
             <div>
                 <h2>{this.state.question}</h2>
                 {this.state.options.map((option) => {
-                    return (<Option key={option.name} option={option} onChange = {this.optionChecked}/>)
-                })
-                }
+                    const votes = this.state.votes
+                    return (<Option key = {option.name} name ={option.name} label = {option.label} checked={votes[option.name]} onChange = {this.optionChecked}/>)
+                })}
                 <Option key="newOption" option={newOption} readOnly={false}/>
+
             </div>
         )
     }
@@ -69,7 +84,7 @@ class PollPlus extends React.Component {
 
 class Poll extends React.Component {
     render() {
-        return (<div><PollPlus question =  {poll.question} options = {poll.options} /></div>)
+        return (<div><PollPlus poll =  {poll} /></div>)
     }
 }
 
