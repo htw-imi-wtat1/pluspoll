@@ -2,8 +2,6 @@ import React from 'react';
 import socketIOClient from "socket.io-client";
 import config from "../config"
 
-config.endpoint = "http://pluspoll.herokuapp.com/"
-
 class Echo extends React.Component {
     constructor(props) {
         super(props);
