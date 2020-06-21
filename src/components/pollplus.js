@@ -15,7 +15,76 @@ const poll =
         }
     }
 
-    function OptionF(props){
+class Question extends React.Component{
+    constructor(props) {
+        super(props)
+        this.state = {
+            text: "",
+            editing: true,
+            onChange: props.onChange
+        }
+        this.onChange = this.onChange.bind(this)
+        this.keyPress = this.keyPress.bind(this)
+        this.startEditing = this.startEditing.bind(this)
+
+    }
+    keyPress(e){
+        if(e.keyCode === 13){
+            const newText = e.target.value
+            //console.log('value',newText);
+            this.state.onChange(e)
+            this.setState({
+                text: newText,
+                editing: false})
+        }
+    }
+    startEditing(e){
+        this.setState({editing: true})
+    }
+    onChange(e){
+       // console.log(e.target.value)
+        this.setState({text: e.target.value || ''})
+    }
+    render(){
+        if (this.state.editing) {
+            return (<input value = {this.state.text} placeholder="question" onKeyDown={this.keyPress} onChange={this.onChange}/>)
+        } else {
+            return (<p onClick={this.startEditing}>{this.state.text}</p>)
+        }
+
+        }
+}
+class NewOption extends React.Component{
+    constructor(props) {
+        super(props);
+        this.state = {
+            text: "",
+            onChange: props.onChange
+        }
+        this.onChange = this.onChange.bind(this)
+        this.keyPress = this.keyPress.bind(this)
+    }
+    keyPress(e){
+        if(e.keyCode === 13){
+            // console.log('value', e.target.value);
+            this.state.onChange(e.target.value)
+            this.setState({
+                text: ""})
+        }
+    }
+    onChange(e){
+        // console.log(e.target.value)
+        this.setState({text: e.target.value || ''})
+    }
+    render(){
+    return <div>
+        <label>
+            + <input value ={this.state.text} placeholder="add option" onKeyDown={this.keyPress} onChange={this.onChange}/>
+        </label>
+    </div>;
+    }
+}
+    function Option(props){
     return <div>
         <label>
             <input
@@ -27,37 +96,7 @@ const poll =
         </label>
     </div>;
     }
-class Option extends React.Component {
-    constructor(props) {
-    console.log("Option constructor"+props.name+props.checked)
-        super(props);
 
-        this.state = {
-            name: props.name,
-            label: props.label,
-            checked: props.checked,
-            onChange: props.onChange
-        };
-        //console.log("state"+JSON.stringify(this.state))
-        this.handleChange = this.handleChange.bind(this);
-    }
-    handleChange(event){
-        this.state.onChange(this.state.name, event.target.checked)
-    }
-    render(){
-
-    return(<div>
-        <label>
-            <input
-                name={this.state.name}
-                type="checkbox"
-                checked={this.state.checked}
-                onChange={this.handleChange} />
-            {this.state.label}
-        </label>
-            </div>)
-    }
-}
 class PollPlus extends React.Component {
     constructor(props) {
         super(props);
@@ -80,34 +119,73 @@ class PollPlus extends React.Component {
         }
         return optionChecked
     }
-    
+    addOption(newOption){
+        console.log("add option called: "+newOption)
+    }
+
     render() {
         console.log("re-render")
         console.log(JSON.stringify(this.state))
-        const newOption = {checked: false}
+
         return (
             <div>
                 <h2>{this.state.question}</h2>
                 {this.state.options.map((option) => {
                     const votes = this.state.votes
-                    return (<OptionF key = {option.name} name ={option.name} label = {option.label} checked={votes[option.name]} onChange = {this.createHandler(option.name)}/>)
+                    return (<Option key = {option.name} name ={option.name} label = {option.label} checked={votes[option.name]} onChange = {this.createHandler(option.name)}/>)
                 })}
-                <Option key="newOption" option={newOption} readOnly={false}/>
+                <NewOption key="newOption" onChange = {this.addOption}/>
 
             </div>
         )
     }
 }
+class PollCreator extends React.Component {
+    constructor(props) {
+        super(props);
+        this.addOption = this.addOption.bind(this)
+        this.state = {options:[]}
+        this.openPoll = this.openPoll.bind(this)
+        this.setQuestion = this.setQuestion.bind(this)
+    }
+    openPoll(){
+        console.log(JSON.stringify(this.state))
+    }
+    setQuestion(event){
+        const question = event.target.value
+        this.setState({question: question})
+    }
+    render(){
+        return(<div>
+
+            <Question onChange = {this.setQuestion} />
+            {this.state.options.map((option) => {
+            return(<div>{option.label} ({option.name})</div>)
+        })}
+            <NewOption key="newOption" onChange = {this.addOption}/>
+        <button onClick={this.openPoll}>Open Poll</button>
+        </div>)
+    }
+    addOption(newOption){
+        const newOptions = this.state.options
+        const newOptionName = newOption.replace(/ /g,"_").toLocaleLowerCase()
+        newOptions.push({name: newOptionName, label: newOption})
+        this.setState({options: newOptions} )
+        console.log("add option called: "+newOption)
+    }
+}
+
+
 
 class Poll extends React.Component {
     render() {
-        return (<div><PollPlus poll =  {poll} /></div>)
+        return (<div><PollCreator poll =  {poll} /></div>)
     }
 }
 
 class Vote extends React.Component {
     render() {
-        return (<div>Hello! I'm the Vote</div>)
+        return (<div><PollPlus poll =  {poll} /></div>)
     }
 }
 
