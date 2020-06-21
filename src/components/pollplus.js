@@ -10,11 +10,23 @@ const poll =
         votes: {
             vanilla: false,
             chocolate: false,
-            pistachio: true,
+            pistachio: false,
             rumraisin: false
         }
     }
 
+    function OptionF(props){
+    return <div>
+        <label>
+            <input
+                name={props.name}
+                type="checkbox"
+                checked={props.checked}
+                onChange={props.onChange} />
+            {props.label}
+        </label>
+    </div>;
+    }
 class Option extends React.Component {
     constructor(props) {
     console.log("Option constructor"+props.name+props.checked)
@@ -31,7 +43,6 @@ class Option extends React.Component {
     }
     handleChange(event){
         this.state.onChange(this.state.name, event.target.checked)
-
     }
     render(){
 
@@ -55,15 +66,21 @@ class PollPlus extends React.Component {
             options: props.poll.options,
             votes: props.poll.votes
         };
-        this.optionChecked = this.optionChecked.bind(this);
+        //this.optionChecked = this.optionChecked.bind(this);
+        this.createHandler = this.createHandler.bind(this)
     }
-    optionChecked(key,checked){
-        const currentVotes = this.state.votes
-        currentVotes[key] = checked
-        console.log("option checked: "+key+checked)
-        console.log(JSON.stringify(currentVotes))
-        this.setState({votes: currentVotes})
+    createHandler(name){
+        const optionChecked = (event) => {
+            const checked = event.target.checked
+            const currentVotes = this.state.votes
+            currentVotes[name] = checked
+            console.log("option checked: "+name+checked)
+            console.log(JSON.stringify(currentVotes))
+            this.setState({votes: currentVotes})
+        }
+        return optionChecked
     }
+    
     render() {
         console.log("re-render")
         console.log(JSON.stringify(this.state))
@@ -73,7 +90,7 @@ class PollPlus extends React.Component {
                 <h2>{this.state.question}</h2>
                 {this.state.options.map((option) => {
                     const votes = this.state.votes
-                    return (<Option key = {option.name} name ={option.name} label = {option.label} checked={votes[option.name]} onChange = {this.optionChecked}/>)
+                    return (<OptionF key = {option.name} name ={option.name} label = {option.label} checked={votes[option.name]} onChange = {this.createHandler(option.name)}/>)
                 })}
                 <Option key="newOption" option={newOption} readOnly={false}/>
 
