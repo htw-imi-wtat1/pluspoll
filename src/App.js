@@ -6,6 +6,7 @@ import {
     Link
 } from "react-router-dom";
 import Ping from './components/ping'
+import Echo from './components/echo'
 import './App.css';
 import { Poll,Vote } from "./components/pollplus.js"
 
@@ -58,6 +59,7 @@ function Home() {
             <h1>PollPlus</h1>
             <p>Welcome to PollPlus.</p>
             <p><Ping/></p>
+            <p><Echo/></p>
             <a href="poll">Create Poll</a>
         </div>
     );

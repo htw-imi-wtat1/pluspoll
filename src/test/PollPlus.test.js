@@ -1,8 +1,7 @@
 import React from 'react';
-import PollCreator from "./pollcreator/PollCreator";
-import PollPlus from "./vote/PollPlus";
+import { render } from '@testing-library/react';
+import PollPlus from '../components/vote/PollPlus';
 
-const ENDPOINT = "http://127.0.0.1:3001";
 
 const poll =
     {
@@ -18,19 +17,8 @@ const poll =
             rumraisin: false
         }
     }
-
-
-class Poll extends React.Component {
-    render() {
-        return (<div><PollCreator poll =  {poll} /></div>)
-    }
-}
-
-class Vote extends React.Component {
-    render() {
-        return (<div><PollPlus poll =  {poll} /></div>)
-    }
-}
-
-
-export {Poll, Vote}
+test('renders pollcreator', () => {
+    const { getByText } = render(<PollPlus poll =  {poll} />);
+    const linkElement = getByText(/Please choose an icecream flavor/i);
+    expect(linkElement).toBeInTheDocument();
+});

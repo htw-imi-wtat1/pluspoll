@@ -50,7 +50,7 @@ class Ping extends React.Component {
             return <span>Pinging Backend...</span>;
         } else {
             return (
-                <span>Pinged Backend and received: {data}</span>
+                <span>Backend answered to ping: {data}</span>
             );
         }
     }

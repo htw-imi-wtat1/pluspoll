@@ -19,4 +19,4 @@ const server = app.listen(port, () => {
 })
 
 const io = require('socket.io')(server)
-const chatController = require('./socketController')(io)
+ require('./socketController')(io)

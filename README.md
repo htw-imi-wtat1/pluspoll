@@ -1,6 +1,11 @@
 # PlusPoll
 
 Example project for React & Express & Socket.io
+It's based on create-react-app with a small (new) express backend in the [backend folder](../backend) serving
+the api and hosting the socket.io server.
+
+create-react-app hides all configuration in its dependencies, with little to no hooks to modify this configuration.
+The strategy for this app is to live with the defaults and alter nothing.
 
 ## Usage
 
@@ -24,6 +29,7 @@ moved the generated README to [./doc/create-react-app-readme.doc](./doc/create-r
 
 ## Add Express
 
+It's in [backend](../backend).
 
 ## Api Calls, connecting the Backend
 
@@ -42,5 +48,16 @@ Added react router and used the basic example.
 - [Basic Example in react-router](https://reacttraining.com/react-router/web/example/basic)
 
 ## Add Socket.io
+There are several examples on how to combine express with react and react with express.
+### Sleek example for socket.io with two separate servers for Express Backend and React
+- blog post [Valentino Gagliardi: ](https://www.valentinog.com/blog/socket-react/),
+- this works nicely, here's the source code of my tryout: [https://github.com/htw-imi-wtat1/react-socketio-tryout](https://github.com/htw-imi-wtat1/react-socketio-tryout) 
 
-https://www.valentinog.com/blog/socket-react/
+
+## Testing
+
+Only started Testing:
+
+* [Testing React with Jest](https://jestjs.io/docs/en/tutorial-react)
+* to understand how to test you need to get an idea of the [Testing Library](https://testing-library.com/), more specifically 
+  its [React Testing Library](https://testing-library.com/docs/react-testing-library/intro)

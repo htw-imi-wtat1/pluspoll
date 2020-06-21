@@ -2,6 +2,9 @@
 
 module.exports = io => {
     io.on('connection', client => {
+        client.on('echo', data =>{
+            io.emit('echo',data)
+        })
         //   client.emit('load all messages', messages.reverse())
 
         console.log('new connection')
