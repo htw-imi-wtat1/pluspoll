@@ -3,14 +3,12 @@ import socketIOClient from "socket.io-client";
 import Question from "./Question"
 import NewOption from "../shared/NewOption";
 import label2Option from "../shared/label2Option";
-const ENDPOINT = "http://127.0.0.1:3001";
-
-
+import frontend from "../../config";
 
 class PollCreator extends React.Component {
     constructor(props) {
         super(props);
-        const socket  = socketIOClient(ENDPOINT);
+        const socket  = socketIOClient(frontend.endpoint);
         socket.on("FromAPI", data => {
             console.log("received: "+JSON.stringify(data))
         });

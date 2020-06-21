@@ -1,6 +1,6 @@
 import React from 'react';
 import socketIOClient from "socket.io-client";
-const ENDPOINT = "http://127.0.0.1:3001";
+import frontend from "../config"
 
 class Echo extends React.Component {
     constructor(props) {
@@ -13,7 +13,7 @@ class Echo extends React.Component {
     }
 
     componentDidMount() {
-        const socket  = socketIOClient(ENDPOINT);
+        const socket  = socketIOClient(frontend.endpoint);
         socket.on("echo", data => {
             console.log("echo received: "+data)
             this.setState({isLoaded: true,

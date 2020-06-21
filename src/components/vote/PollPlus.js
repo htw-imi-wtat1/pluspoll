@@ -5,8 +5,7 @@ import NewOption from "../shared/NewOption";
 import label2Option from "../shared/label2Option";
 
 import socketIOClient from "socket.io-client";
-
-const ENDPOINT = "http://127.0.0.1:3001";
+import config from "../../config"
 
 class PollPlus extends React.Component {
 
@@ -22,7 +21,7 @@ class PollPlus extends React.Component {
         this.addOption = this.addOption.bind(this)
     }
     componentDidMount(){
-        const socket  = socketIOClient(ENDPOINT);
+        const socket  = socketIOClient(config.endpoint);
         socket.on("addOption", data => {
             console.log("new option received: "+JSON.stringify(data))
             const options = this.state.options
@@ -40,7 +39,7 @@ class PollPlus extends React.Component {
             currentVotes[name] = checked
             console.log("option checked: "+name+checked)
             console.log(JSON.stringify(currentVotes))
-            this.setState({votes: currentVotes})
+            this.setState({votes: currentVotes  })
         }
         return optionChecked
     }
@@ -61,7 +60,6 @@ class PollPlus extends React.Component {
                     return (<Option key = {option.name} name ={option.name} label = {option.label} checked={votes[option.name]} onChange = {this.createHandler(option.name)}/>)
                 })}
                 <NewOption key="newOption" onChange = {this.addOption}/>
-
             </div>
         )
     }

@@ -2,8 +2,6 @@ import React from 'react';
 import PollCreator from "./pollcreator/PollCreator";
 import PollPlus from "./vote/PollPlus";
 
-const ENDPOINT = "http://127.0.0.1:3001";
-
 const poll =
     {
         question: 'Please choose an icecream flavor!',

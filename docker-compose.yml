@@ -1,0 +1,22 @@
+version: '3'
+services:
+  mongodb:
+    image: library/mongo:4.0-xenial
+    container_name: 'pluspoll-mongo'
+    volumes:
+      - ./mongo/data:/data/db
+    ports:
+      - 27017-27019:27017-27019
+  pluspoll:
+    container_name: pluspoll
+    restart: always
+    build: .
+    ports:
+      - "3011:3011"
+    links:
+      - mongodb
+    environment:
+      - PORT=3011
+      - MONGODB_URI=mongodb://mongodb:27017/pluspoll
+    volumes:
+      - ./logs/docker-npm:/root/.npm/_logs/

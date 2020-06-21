@@ -7,10 +7,10 @@ module.exports = io => {
         })
         //   client.emit('load all messages', messages.reverse())
 
-        console.log('new connection')
+        console.log((new Date).toISOString()+': new connection')
 
         client.on('disconnect', () => {
-            console.log('user disconnected')
+            console.log((new Date).toISOString()+': user disconnected')
         })
         client.on('newPoll', data => {
             console.log("newPoll" + JSON.stringify(data))

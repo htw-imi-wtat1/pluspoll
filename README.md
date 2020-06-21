@@ -11,21 +11,25 @@ The strategy for this app is to live with the defaults and alter nothing.
 
 ### Development
 
-Start Backend server with 
+Start Backend server with
 
     node backend/server.js
-    
+
 Start dev frontend server with
 
     yarn start
-    
+
 (api requests to the backend are proxied)
+
+## Configuration
+
+    see [config](../config/)
 
 ## Created with create-react-app
 
     npx create-react-app pollplus
 
-moved the generated README to [./doc/create-react-app-readme.doc](./doc/create-react-app-readme.doc)
+moved the generated README to [./doc/create-react-app-readme.doc](doc/create-react-app-readme.md)
 
 ## Add Express
 
@@ -51,7 +55,7 @@ Added react router and used the basic example.
 There are several examples on how to combine express with react and react with express.
 ### Sleek example for socket.io with two separate servers for Express Backend and React
 - blog post [Valentino Gagliardi: ](https://www.valentinog.com/blog/socket-react/),
-- this works nicely, here's the source code of my tryout: [https://github.com/htw-imi-wtat1/react-socketio-tryout](https://github.com/htw-imi-wtat1/react-socketio-tryout) 
+- this works nicely, here's the source code of my tryout: [https://github.com/htw-imi-wtat1/react-socketio-tryout](https://github.com/htw-imi-wtat1/react-socketio-tryout)
 
 
 ## Testing
@@ -59,5 +63,5 @@ There are several examples on how to combine express with react and react with e
 Only started Testing:
 
 * [Testing React with Jest](https://jestjs.io/docs/en/tutorial-react)
-* to understand how to test you need to get an idea of the [Testing Library](https://testing-library.com/), more specifically 
+* to understand how to test you need to get an idea of the [Testing Library](https://testing-library.com/), more specifically
   its [React Testing Library](https://testing-library.com/docs/react-testing-library/intro)
