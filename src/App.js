@@ -60,7 +60,10 @@ function Home() {
             <p>Welcome to PollPlus.</p>
             <p><Ping/></p>
             <p><Echo/></p>
-            <a href="poll">Create Poll</a>
+           <p><small>You are running this application in <b>{process.env.NODE_ENV}</b> mode.</small></p>
+            <p><small>Sockets connect to: {process.env.REACT_APP_ENDPOINT}</small></p>
+
+            <a href="/poll">Create Poll</a>
         </div>
     );
 }
