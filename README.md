@@ -8,7 +8,7 @@ Example project for React & Express & Socket.io
 
 Start Backend server with 
 
-    node server.js
+    node backend/server.js
     
 Start dev frontend server with
 
@@ -40,3 +40,7 @@ To tunnel backend requests through the front end running on port 3000, two thing
 Added react router and used the basic example.
 - [Adding a router](https://create-react-app.dev/docs/adding-a-router)
 - [Basic Example in react-router](https://reacttraining.com/react-router/web/example/basic)
+
+## Add Socket.io
+
+https://www.valentinog.com/blog/socket-react/

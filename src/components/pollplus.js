@@ -1,4 +1,11 @@
 import React from 'react';
+import socketIOClient from "socket.io-client";
+const ENDPOINT = "http://127.0.0.1:3001";
+
+function label2Option(newOption){
+    const newOptionName = newOption.replace(/ /g,"_").toLocaleLowerCase()
+    return {name: newOptionName, label: newOption}
+}
 
 const poll =
     {
@@ -98,6 +105,7 @@ class NewOption extends React.Component{
     }
 
 class PollPlus extends React.Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -107,6 +115,19 @@ class PollPlus extends React.Component {
         };
         //this.optionChecked = this.optionChecked.bind(this);
         this.createHandler = this.createHandler.bind(this)
+        this.addOption = this.addOption.bind(this)
+    }
+    componentDidMount(){
+        const socket  = socketIOClient(ENDPOINT);
+        socket.on("addOption", data => {
+            console.log("new option received: "+JSON.stringify(data))
+            const options = this.state.options
+            options.push(data)
+            console.log("options "+JSON.stringify(options))
+            this.setState({options: options})
+
+        });
+        this.socket = socket
     }
     createHandler(name){
         const optionChecked = (event) => {
@@ -121,11 +142,12 @@ class PollPlus extends React.Component {
     }
     addOption(newOption){
         console.log("add option called: "+newOption)
+        this.socket.emit("addOption",label2Option(newOption))
     }
 
     render() {
         console.log("re-render")
-        console.log(JSON.stringify(this.state))
+       // console.log(JSON.stringify(this.state))
 
         return (
             <div>
@@ -143,13 +165,24 @@ class PollPlus extends React.Component {
 class PollCreator extends React.Component {
     constructor(props) {
         super(props);
+        const socket  = socketIOClient(ENDPOINT);
+        socket.on("FromAPI", data => {
+            console.log("received: "+JSON.stringify(data))
+        });
         this.addOption = this.addOption.bind(this)
-        this.state = {options:[]}
+        this.state = {options:[], socket: socket}
         this.openPoll = this.openPoll.bind(this)
         this.setQuestion = this.setQuestion.bind(this)
     }
+    componentDidMount(){
+      //  this.setState(
+    }
     openPoll(){
-        console.log(JSON.stringify(this.state))
+        //console.log(JSON.stringify(this.state))
+        this.state.socket.emit('newPoll', {
+            question: this.state.question,
+            options: this.state.options
+        })
     }
     setQuestion(event){
         const question = event.target.value
@@ -168,8 +201,7 @@ class PollCreator extends React.Component {
     }
     addOption(newOption){
         const newOptions = this.state.options
-        const newOptionName = newOption.replace(/ /g,"_").toLocaleLowerCase()
-        newOptions.push({name: newOptionName, label: newOption})
+        newOptions.push(label2Option(newOption))
         this.setState({options: newOptions} )
         console.log("add option called: "+newOption)
     }

@@ -13,5 +13,10 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 const port = process.env.PORT || 3001
-console.log("listening on port "+port)
-app.listen(port);
+
+const server = app.listen(port, () => {
+  console.log(`listening on port ${port}`)
+})
+
+const io = require('socket.io')(server)
+const chatController = require('./socketController')(io)
