@@ -14,6 +14,7 @@ class Question extends React.Component{
 
     }
     keyPress(e){
+        console.log(e.keyCode)
         if(e.keyCode === 13){
             const newText = e.target.value
             //console.log('value',newText);

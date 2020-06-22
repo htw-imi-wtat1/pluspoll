@@ -1,7 +1,6 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import PollCreator from '../components/pollcreator/PollCreator';
-
 
 const poll =
     {
@@ -17,8 +16,27 @@ const poll =
             rumraisin: false
         }
     }
-test('renders pollcreator', () => {
-    const { getByText } = render(<PollCreator poll =  {poll} />);
-    const linkElement = getByText(/Create a new Poll/i);
-    expect(linkElement).toBeInTheDocument();
+test('initial options are shown', () => {
+    const { queryByText  } = render(<PollCreator poll =  {poll} />);
+    expect(queryByText(/Vanilla/i)).toBeTruthy()
+
+});
+
+test('add option element is there', () => {
+    const { debug, queryByPlaceholderText  } = render(<PollCreator poll =  {poll} />);
+    //debug()
+    expect(queryByPlaceholderText(/add option/i)).toBeTruthy()
+
+});
+
+test('add option is directly added to the component', () => {
+    const { debug, queryByPlaceholderText,queryByText  } = render(<PollCreator poll =  {poll} />);
+    //debug()
+    const newOption = "This is a new Option"
+    const addOptionElement = queryByPlaceholderText(/add option/i)
+    fireEvent.keyDown(addOptionElement, {key: 'Enter', code: 'Enter', keyCode: 13, charCode: 13, target: { value: newOption } })
+    //debug()
+    //console.log(addOptionElement.outerHTML)
+    expect(queryByText(RegExp(newOption))).toBeTruthy()
+
 });

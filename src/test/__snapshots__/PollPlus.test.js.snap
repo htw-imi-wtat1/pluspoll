@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders poll creator 1`] = `
+<div>
+  <h2>
+    Please choose an icecream flavor!
+  </h2>
+  <div>
+    <label>
+      <input
+        checked={false}
+        name="rumraisin"
+        onChange={[Function]}
+        type="checkbox"
+      />
+      Rum-Raisin
+    </label>
+  </div>
+  <div>
+    <label>
+      <input
+        checked={false}
+        name="vanilla"
+        onChange={[Function]}
+        type="checkbox"
+      />
+      Vanilla
+    </label>
+  </div>
+  <div>
+    <label>
+      <input
+        checked={false}
+        name="chocolate"
+        onChange={[Function]}
+        type="checkbox"
+      />
+      Chocolate
+    </label>
+  </div>
+  <div>
+    <label>
+      <input
+        checked={false}
+        name="pistachio"
+        onChange={[Function]}
+        type="checkbox"
+      />
+      Pistachio
+    </label>
+  </div>
+  <div>
+    <label>
+      + 
+      <input
+        onChange={[Function]}
+        onKeyDown={[Function]}
+        placeholder="add option"
+        value=""
+      />
+    </label>
+  </div>
+</div>
+`;

@@ -12,8 +12,9 @@ class PollCreator extends React.Component {
         socket.on("FromAPI", data => {
             console.log("received: "+JSON.stringify(data))
         });
+        const options = props.poll.options || []
         this.addOption = this.addOption.bind(this)
-        this.state = {options:[], socket: socket}
+        this.state = {options: options, socket: socket}
         this.openPoll = this.openPoll.bind(this)
         this.setQuestion = this.setQuestion.bind(this)
     }
@@ -36,7 +37,7 @@ class PollCreator extends React.Component {
             <h3>Create a new Poll</h3>
             <Question onChange = {this.setQuestion} />
             {this.state.options.map((option) => {
-                return(<div>{option.label} ({option.name})</div>)
+                return(<div key = {option.name} >{option.label} ({option.name})</div>)
             })}
             <NewOption key="newOption" onChange = {this.addOption}/>
             <button onClick={this.openPoll}>Open Poll</button>

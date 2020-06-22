@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import snapshotRenderer from 'react-test-renderer'
 import PollPlus from '../components/vote/PollPlus';
 
 
@@ -17,8 +17,12 @@ const poll =
             rumraisin: false
         }
     }
-test('renders pollcreator', () => {
-    const { getByText } = render(<PollPlus poll =  {poll} />);
-    const linkElement = getByText(/Please choose an icecream flavor/i);
-    expect(linkElement).toBeInTheDocument();
+test('renders poll creator', () => {
+    const component = snapshotRenderer.create(
+        <PollPlus poll =  {poll} />
+    )
+    let tree = component.toJSON()
+    expect(tree).toMatchSnapshot()
+
+    const newQuestion = "What's your favourite programming language?"
 });
