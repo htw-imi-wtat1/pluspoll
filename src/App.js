@@ -61,7 +61,7 @@ function Home() {
             <p><Ping/></p>
             <p><Echo/></p>
             <p><small>You are running this application in <b>{process.env.NODE_ENV}</b> mode.</small></p>
-            <a href="/poll">Create Poll</a>
+            <Link to="/poll">Host Poll</Link>
         </div>
     );
 }

@@ -42,7 +42,7 @@ class Ping extends React.Component {
 
     render() {
         const { error, isLoaded, data, status } = this.state;
-        console.log("data: "+JSON.stringify(data))
+       // console.log("data: "+JSON.stringify(data))
         if (error || (status === 500)) {
             return <span>Pinging Backend yielded Error: {error && error.message}, Status: {status}
             <br/>(is the backend server started with node server.js?)</span>;
