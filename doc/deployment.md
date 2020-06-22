@@ -26,10 +26,14 @@ static asset:
 
 ## Socket.io on Heroku
 
-https://devcenter.heroku.com/articles/node-websockets
-location.origin - cannot be used
+- [https://devcenter.heroku.com/articles/node-websockets](https://devcenter.heroku.com/articles/node-websockets)
+ suggests location.origin but this cannot be used (linter errors.)
 
-heroku config.set REACT_APP_ENDPOINT=http://pluspoll.herokuapp.com
+Solution: set server via environment variable - this has to be set
+at __build__ time. (the bundle in the browser can't read them at run time!)
+The env variable has to start with REACT_APP_ - all others are ignored.
 
-      - .:/usr/src/pluspoll
-      - /usr/src/pluspoll/node_modules
+heroku config.set REACT_APP_ENDPOINT=https://pluspoll.herokuapp.com
+
+Documentation: [https://create-react-app.dev/docs/adding-custom-environment-variables](https://create-react-app.dev/docs/adding-custom-environment-variables)
+
