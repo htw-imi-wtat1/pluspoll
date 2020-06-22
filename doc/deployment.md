@@ -59,3 +59,6 @@ during build time in the docker container. You find the example in the [Dockerfi
 See:
 - https://create-react-app.dev/docs/deployment/#customizing-environment-variables-for-arbitrary-build-environments
 - https://create-react-app.dev/docs/deployment/
+
+(note: as this app depends on a backend api, the api could deliver the host name 
+eliminating the need to rebuild the docker image)

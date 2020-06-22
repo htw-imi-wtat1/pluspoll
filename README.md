@@ -1,13 +1,33 @@
 # PlusPoll
 
-[Preview on Heroku](https://pluspoll.herokuapp.com/)
+ ![CI](https://github.com/htw-imi-wtat1/pluspoll/workflows/CI/badge.svg) | [Preview on Heroku](https://pluspoll.herokuapp.com/)
 
-Example project for React & Express & Socket.io
-It's based on create-react-app with a small (new) express backend in the [backend folder](../backend) serving
+Example project for combining [React](https://reactjs.org/), [Express](https://expressjs.com/) and [Socket.io](https://socket.io/).
+
+It's based on [create-react-app](https://reactjs.org/docs/create-a-new-react-app.html) with a small express backend in the [backend folder](./backend) serving
 the api and hosting the socket.io server.
 
-create-react-app hides all configuration in its dependencies, with little to no hooks to modify this configuration.
+[create-react-app](https://reactjs.org/docs/create-a-new-react-app.html) hides all configuration in its dependencies, with little to no hooks to modify this configuration.
 The strategy for this app is to live with the defaults and alter nothing.
+
+# This App is not completed!
+It contains two main pages containing the two main components,
+PollCreator to create polls and PollPlus for the actual 
+running poll with the possibility to add poll options that
+are pushed to all other poll participants. 
+
+The transfer of the new poll options works via socket.io, 
+as does the (only local) re-rendering of the PollCreator 
+when options are added.
+There is no more functionality, and no database connection yet!
+
+The start page tests the connections to the backend and the socket.io 
+server. 
+
+There are [examples for tests](./doc/testing-react.md), a completely
+configured [deployment to heroku and dockerization](./doc/deployment.md)
+as well as [notes on the creation and how to combine express, react and socket.io.](./doc/app-creation.md)
+
 
 ## Usage
 
@@ -22,7 +42,12 @@ Start dev frontend server with
 
     yarn start
 
-(api requests to the backend are proxied)
+This spins up a second server which reloads the page
+on changes in the source code. The backend is declared
+as a proxy; thus, unknown requests e.g. to the api/
+are forwarded to the express backend.
+(see [Proxying API Requests in Development](https://create-react-app.dev/docs/proxying-api-requests-in-development/))
+
 
 ### Production / Docker
 
@@ -30,54 +55,8 @@ You can start the app in docker by running
 
     make start
 
-or
+or if you dont want to use make you can just copy the docker commands
+     in [makefile](./makefile) and run them manually, e.g.
 
-   docker-compose up -d
+    docker-compose up -d
 
-(note that if you dont want to use make you can just copy the docker commands
-  in [makefile](./makefile) and run them manually)
-
-## Configuration
-
-    see [backend/config.js](../backend/config.js) and
-
-## Created with create-react-app
-
-    npx create-react-app pollplus
-
-moved the generated README to [./doc/create-react-app-readme.doc](doc/create-react-app-readme.md)
-
-## Add Express
-
-It's in [backend](../backend).
-
-## Api Calls, connecting the Backend
-
-https://reactjs.org/docs/faq-ajax.html
-
-To tunnel backend requests through the front end running on port 3000, two things are necessary:
-- proxy in package.json
-- header accept = "application/json" to make the dev server use the proxy to the backend
-
-- see Blog Article [How to connect your React app to a backend on the same origin](https://flaviocopes.com/how-to-serve-react-from-same-origin/)
-- [Proxying API Requests in Development](https://create-react-app.dev/docs/proxying-api-requests-in-development/)
-
-## Add React Router
-Added react router and used the basic example.
-- [Adding a router](https://create-react-app.dev/docs/adding-a-router)
-- [Basic Example in react-router](https://reacttraining.com/react-router/web/example/basic)
-
-## Add Socket.io
-There are several examples on how to combine express with react and react with express.
-### Sleek example for socket.io with two separate servers for Express Backend and React
-- blog post [Valentino Gagliardi: ](https://www.valentinog.com/blog/socket-react/),
-- this works nicely, here's the source code of my tryout: [https://github.com/htw-imi-wtat1/react-socketio-tryout](https://github.com/htw-imi-wtat1/react-socketio-tryout)
-
-
-## Testing
-
-Only started Testing:
-
-* [Testing React with Jest](https://jestjs.io/docs/en/tutorial-react)
-* to understand how to test you need to get an idea of the [Testing Library](https://testing-library.com/), more specifically
-  its [React Testing Library](https://testing-library.com/docs/react-testing-library/intro)
