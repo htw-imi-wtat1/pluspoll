@@ -1,5 +1,7 @@
 # PlusPoll
 
+[Preview on Heroku](https://pluspoll.herokuapp.com/)
+
 Example project for React & Express & Socket.io
 It's based on create-react-app with a small (new) express backend in the [backend folder](../backend) serving
 the api and hosting the socket.io server.
@@ -11,9 +13,10 @@ The strategy for this app is to live with the defaults and alter nothing.
 
 ### Development
 
-Start Backend server with
+Start Backend server and a mongo db in docker with
 
     node backend/server.js
+    make justdb
 
 Start dev frontend server with
 
@@ -21,9 +24,22 @@ Start dev frontend server with
 
 (api requests to the backend are proxied)
 
+### Production / Docker
+
+You can start the app in docker by running
+
+    make start
+
+or
+
+   docker-compose up -d
+
+(note that if you dont want to use make you can just copy the docker commands
+  in [makefile](./makefile) and run them manually)
+
 ## Configuration
 
-    see [config](../config/)
+    see [backend/config.js](../backend/config.js) and
 
 ## Created with create-react-app
 
